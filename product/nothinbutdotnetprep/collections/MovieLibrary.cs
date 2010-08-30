@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace nothinbutdotnetprep.collections
@@ -19,12 +20,26 @@ namespace nothinbutdotnetprep.collections
 
         public void add(Movie movie)
         {
-            throw new NotImplementedException();
+            //if (!movies.Contains(movie))
+            //    movies.Add(movie);
+
+
+            int index = 0;
+            for (; index < movies.Count; index++)
+            {
+                Movie m = movies[index];                if (movie.Equals(m) || movie.title.Equals(m.title))
+                    break;
+            }
+            if (index >= movies.Count)
+                movies.Add(movie);
+
         }
 
-        public IEnumerable<Movie> sort_all_movies_by_title_descending
+        public IEnumerable<Movie> sort_all_movies_by_title_descending()
         {
-            get { throw new NotImplementedException(); }
+            List<Movie> list = new List<Movie> ( movies);
+            list.Sort((m, n) => { return m.title.CompareTo(n.title); });
+            return list;
         }
 
         public IEnumerable<Movie> all_movies_published_by_pixar()
@@ -37,12 +52,12 @@ namespace nothinbutdotnetprep.collections
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Movie> sort_all_movies_by_title_ascending
+        public IEnumerable<Movie> sort_all_movies_by_title_ascending()
         {
-            get { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Movie> sort_all_movies_by_movie_studio_and_year_published()
+    }        public IEnumerable<Movie> sort_all_movies_by_movie_studio_and_year_published()
         {
             throw new NotImplementedException();
         }
@@ -81,5 +96,4 @@ namespace nothinbutdotnetprep.collections
         {
             throw new NotImplementedException();
         }
-    }
-}
+    

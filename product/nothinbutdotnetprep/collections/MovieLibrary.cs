@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using nothinbutdotnetprep.infrastructure;
 
@@ -29,13 +30,23 @@ namespace nothinbutdotnetprep.collections
             return movies.Contains(movie);
         }
 
-        public IEnumerable<Movie> all_movies_published_by_pixar()
+        
+        public delegate bool MovieMatches(Movie a);
+
+        public IEnumerable<Movie> all_movies_that(MovieMatches mm)
         {
             foreach (var movie in movies)
             {
-                if (movie.production_studio == ProductionStudio.Pixar)
+                if (mm(movie))
                     yield return movie;
             }
+        }
+
+
+
+        public IEnumerable<Movie> all_movies_published_by_pixar()
+        {
+            return all_movies_that(m => m.title.Equals(ProductionStudio.Pixar));
         }
 
         public IEnumerable<Movie> all_movies_not_published_by_pixar()
